@@ -1,5 +1,5 @@
 import './App.css';
-import {React,useState} from 'react';
+import {React,useState,useEffect} from 'react';
 function App() {
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState('');
@@ -8,8 +8,34 @@ function App() {
   const [id, setId] = useState(0);
   const [description, setDescription] = useState('');
   const [genres, setGenres] = useState([]);
-   
+  const [mangaData, setMangaData] = useState([]);
+  
+  useEffect(() => {
+    // Define the URL of the API endpoint
+    const apiUrl = "https://universe-tau.vercel.app/api/manga";
 
+    // Fetch manga data from the API
+    fetch(apiUrl)
+      .then((response) => {
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse the response body as JSON
+      })
+      .then((data) => {
+        // Set the fetched manga data in the state
+        setMangaData(data);
+      })
+      .catch((error) => {
+        // Handle any errors during the fetch
+        console.error('Fetch error:', error);
+      });
+      
+
+
+
+  }, []);
 
 
 
@@ -55,25 +81,18 @@ function App() {
 
 
   const formData = {
-    title: 'Your Title',
-    artist: 'Your Artist',
-    status: 'Your Status',
-    artwork: 'Your Artwork',
-    id: 1, // Replace with the actual id
-    genres: ['Action', 'Adventure'], // Replace with the selected genres
-    description: 'Your Description',
+    title,
+    artist,
+    status,
+    artwork,
+    id,
+    genre:genres, 
+    description,
   };
   const backendEndpoint = 'https://universe-tau.vercel.app/api';
 
   const fetchInputValues = () => {
-    console.log('Title:', title);
-    console.log('Artist:', artist);
-    console.log('Status:', status);
-    console.log('Artwork:', artwork);
-    console.log('ID:', id);
-    console.log('Description:', description);
-    console.log('Genres:', genres);
-
+    console.log(formData);
     fetch(`${backendEndpoint}/submit-data`, {
       method: 'POST',
       headers: {
@@ -82,27 +101,28 @@ function App() {
       body: JSON.stringify(formData),
     })
       .then((response) => {
+       
         if (response.ok) {
-          return response.json();
+          return response.text(); // Get the response text
         } else {
           throw new Error('Failed to send data to the backend.');
         }
       })
-      .then((data) => {
+      .then((responseText) => {
+        console.log('Response Text:', responseText); // Log the response text
+        // Parse the JSON here
+        const data = JSON.parse(responseText);
         console.log('Data sent successfully:', data);
       })
       .catch((error) => {
         console.error('Error:', error.message);
       });
-
     
 
 
 
 
-
-
-    setId(id+1);
+   
 
   };
 
@@ -270,15 +290,25 @@ function App() {
 
 
   <div className="form-group">
-    <label style={{"color":"white"}} htmlFor="exampleFormControlTextarea1">Discription</label>
-    <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+    <label style={{"color":"white"}} htmlFor="exampleFormControlTextarea1" >Discription</label>
+    <textarea className="form-control"  id="exampleFormControlTextarea1" rows="2"   name="description" value={description} onChange={handleInputChange} ></textarea>
   </div>
 
   <button className='btn btn-primary my-2' onClick={fetchInputValues}>Fetch Input Values</button>
   </div>
-
 </div>
-
+<div>
+      {mangaData.map((manga) => (
+        <div key={manga.id} className="card" style={{ width: "18rem" }}>
+          <img src={manga.artwork} className="card-img-top" alt={manga.title} />
+          <div className="card-body">
+            <h5 className="card-title">{manga.title}</h5>
+            <p className="card-text">{manga.description}</p>
+            <a href={manga.url} className="btn btn-primary">Read Manga</a>
+          </div>
+        </div>
+      ))}
+    </div>
 
 </>
   );
