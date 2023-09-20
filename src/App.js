@@ -304,11 +304,11 @@ function App() {
 <div className='message'>
 <div className="right">
  <img className="mobile" src="mobile.png" alt='...'/>
- <img className="mobile-content" src={artwork} alt='...'/>
+ <img className="mobile-content" src={(artwork==='')?"https://i.imgur.com/DFfU4Et.jpg":artwork} alt='...'/>
  </div>
 <div className="left">
 <div className="card" style={{width: "18rem"}}>
-  <img src={artwork} className="card-img-top" alt="..."/>
+  <img src={(artwork==='')?"https://i.imgur.com/DFfU4Et.jpg":artwork} className="card-img-top" alt="..."/>
   <div className="card-body">
     <h5 className="card-title">{title}</h5>
     <p className="card-text">{artist}</p>
