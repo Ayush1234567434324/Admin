@@ -1,15 +1,9 @@
 import './App.css';
+
 import {React,useState,useEffect} from 'react';
 function App() {
-  const [title, setTitle] = useState('');
-  const [artist, setArtist] = useState('');
-  const [status, setStatus] = useState('');
-  const [artwork, setArtwork] = useState('');
-  const [id, setId] = useState(0);
-  const [description, setDescription] = useState('');
-  const [genres, setGenres] = useState([]);
   const [mangaData, setMangaData] = useState([]);
-  
+
   useEffect(() => {
     // Define the URL of the API endpoint
     const apiUrl = "https://universe-tau.vercel.app/api/manga";
@@ -26,6 +20,7 @@ function App() {
       .then((data) => {
         // Set the fetched manga data in the state
         setMangaData(data);
+        setId(mangaData.length);
       })
       .catch((error) => {
         // Handle any errors during the fetch
@@ -35,13 +30,21 @@ function App() {
 
 
 
-  }, []);
+  }, [mangaData]);
 
 
 
 
 
-
+  const [title, setTitle] = useState('');
+  const [artist, setArtist] = useState('');
+  const [status, setStatus] = useState('');
+  const [artwork, setArtwork] = useState('');
+ 
+  const [description, setDescription] = useState('');
+  const [genres, setGenres] = useState([]);
+ 
+  const [id, setId] = useState(mangaData.length);
 
 
   // Handle changes in input values
@@ -289,7 +292,7 @@ function App() {
 </div>
 
 
-  <div className="form-group">
+  <div className="form-group my-5" >
     <label style={{"color":"white"}} htmlFor="exampleFormControlTextarea1" >Discription</label>
     <textarea className="form-control"  id="exampleFormControlTextarea1" rows="2"   name="description" value={description} onChange={handleInputChange} ></textarea>
   </div>
@@ -297,6 +300,39 @@ function App() {
   <button className='btn btn-primary my-2' onClick={fetchInputValues}>Fetch Input Values</button>
   </div>
 </div>
+
+<div className='message'>
+<div className="right">
+ <img className="mobile" src="mobile.png" alt='...'/>
+ <img className="mobile-content" src={artwork} alt='...'/>
+ </div>
+<div className="left">
+<div className="card" style={{width: "18rem"}}>
+  <img src={artwork} className="card-img-top" alt="..."/>
+  <div className="card-body">
+    <h5 className="card-title">{title}</h5>
+    <p className="card-text">{artist}</p>
+    <p className='card-status'>{status}</p>
+  </div>
+</div>
+</div> 
+ </div>
+
+
+
+<h1 className='tagname'>Tags</h1>
+<div className='tags-container'>
+  {[...Array(3)].map((_, rowIndex) => (
+    <div className='tags-row' key={rowIndex} style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row' }}>
+      {genres.slice(rowIndex * 7, (rowIndex + 1) * 7).map((genre, index) => (
+        <div key={index} className='tag' style={{ fontSize: '16px', marginRight: '50px', marginBottom: '10px', color: 'white' }}>{genre}</div>
+      ))}
+    </div>
+  ))}
+</div>
+
+
+
 <div>
       {mangaData.map((manga) => (
         <div key={manga.id} className="card" style={{ width: "18rem" }}>

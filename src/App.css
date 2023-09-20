@@ -11,6 +11,76 @@ body {
   background-color: black !important;
 }
 
+.message
+{
+  width: 100%;
+  display: flex;
+ 
+}
+
+.right{
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 15%;
+   left: -25%;
+  
+
+}
+
+.tagname
+{
+  background: #fd3b3b;
+  border-radius: 30%;
+  color: white;
+  width: 6rem;
+  text-align: center;
+  height: 3.5rem;
+  font-weight: bold;
+  margin-top: 90px;
+  position: relative;
+  left: -5rem;
+
+}
+.tags{
+
+
+  position: relative;
+  left: -10rem;
+  display: flex;
+  
+
+}
+.tags-container
+{
+ margin-top: 2rem;
+ margin-right: 2rem;
+  
+}
+
+.left{
+  position: relative;
+
+  margin-top: 15%;
+  
+
+}
+
+.mobile{
+  position: absolute;
+  width: 400px;
+  height: 100%;
+ 
+}
+.mobile-content{
+
+ width: 230px;
+ height: 500px;
+  margin-left: 10%;
+  border-radius: 15%;
+  
+}
+
 .outer-container {
   background: #000000db;
   width: 100%; /* Use percentage-based width */
@@ -20,6 +90,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+
   
 }
 
@@ -40,11 +111,84 @@ body {
 }
 
 /* Media Query for Responsive Design */
+
+@media (max-width:1024px)
+{
+  .message{
+    display: block;
+  }
+  .right{
+    left: 20%;
+  }
+  .left{
+    left: 20%;
+  }
+  .mobile-content{
+
+    width: 230px;
+    height: 500px;
+     margin-left: 7%;
+     border-radius: 15%;
+     
+   }
+   .tagname{
+    position: relative;
+    left: 15rem;
+
+   }
+   .tags{
+    margin-top:"55px";
+    display:"flex";
+    position:"relative";
+    left:3rem;
+  
+
+   }
+   .tags-container
+   {
+    margin-top: 0;
+     
+   }
+}
+
 @media (max-width: 768px) {
+  .tagname{
+    position: relative;
+    left: 10rem;
+
+   }
   .outer-container {
     width: 100%; /* Adjust width for smaller screens */
   }
   .inner-container {
     width: 90%; /* Adjust width for smaller screens */
   }
+ 
+ 
+}
+@media (max-width:500px) {
+
+  .right{
+   left: 10px;
+
+  }
+  
+.message{
+  width: 300px;
+}
+.mobile-content{
+
+  width: 230px;
+  height: 500px;
+   margin-left: 16%;
+   border-radius: 15%;
+   
+ }
+ .tags-container
+ {
+  margin-top: 0;
+   
+ }
+
+  
 }
