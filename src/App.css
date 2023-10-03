@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  padding: 0;
+  overflow: scroll !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,6 +110,14 @@ body {
   box-shadow: 0 0 10px 1px white;
 }
 
+
+
+
+
+
+
+
+
 /* Media Query for Responsive Design */
 
 @media (max-width:1024px)
@@ -150,6 +158,13 @@ body {
      
    }
 }
+
+
+
+
+
+
+
 
 @media (max-width: 768px) {
   .tagname{
